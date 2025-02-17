@@ -19,7 +19,6 @@ make docker-up
 
 Для запуска линтера понадобится:
 
-- установить Python 3.12 любым доступным способом;
 - установить [uv](https://docs.astral.sh/uv/getting-started/installation/getting-started/installation/)
 
 # Использование Makefile
