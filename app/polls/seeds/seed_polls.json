@@ -1,0 +1,28 @@
+[
+  {
+    "model": "polls.question",
+    "pk": 1,
+    "fields": {
+      "question_text": "To be, or not to be, that is the question",
+      "pub_date": "2025-02-16T20:52:00Z"
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "choice_text": "to be",
+      "votes": 0
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "choice_text": "not to be",
+      "votes": 0
+    }
+  }
+]

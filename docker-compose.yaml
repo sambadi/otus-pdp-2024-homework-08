@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: uv run gunicorn mysite.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/app/staticfiles
+    environment:
+      SECRET_KEY: "foo"
+      DEBUG: 1
+      DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1 [::1]
+      DJANGO_CSRF_TRUSTED_ORIGINS: http://localhost:8080 http://127.0.0.1:8080
+      SQL_ENGINE: django.db.backends.postgresql
+      SQL_DATABASE: polls_dev
+      SQL_USER: polls_django
+      SQL_PASSWORD: polls_django
+      SQL_HOST: db
+      SQL_PORT: 5432
+    depends_on:
+      - db
+  db:
+    image: postgres:16.2-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: polls_django
+      POSTGRES_PASSWORD: polls_django
+      POSTGRES_DB: polls_dev
+  web:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/staticfiles
+    ports:
+      - 8080:80
+    depends_on:
+      - app
+
+volumes:
+  postgres_data:
+  static_volume:
